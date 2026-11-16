@@ -1,0 +1,59 @@
+%YAML:1.0
+File.version: "1.0"
+Camera.type: "PinHole"
+Camera1.fx: 650.6226640994397
+Camera1.fy: 649.5327735743965
+Camera1.cx: 657.0014646932578
+Camera1.cy: 367.2163102557575
+Camera1.k1: -0.2654961386095742
+Camera1.k2: 0.06601150223841772
+Camera1.p1: 0.0012732198823301125
+Camera1.p2: -0.00041288960149373085
+Camera2.fx: 653.8838303309726
+Camera2.fy: 653.824010935668
+Camera2.cx: 608.87796978689
+Camera2.cy: 333.98915717330954
+Camera2.k1: -0.26809502860758944
+Camera2.k2: 0.06803492101624024
+Camera2.p1: 0.0006003009952569799
+Camera2.p2: 0.000639795257344887
+Camera.width: 1280
+Camera.height: 720
+Camera.fps: 125
+Camera.RGB: 0
+Stereo.ThDepth: 40.0
+Stereo.b: 0.06635707674365307
+Stereo.T_c1_c2: !!opencv-matrix
+ rows: 4
+ cols: 4
+ dt: f
+ data: [0.9963792799, -0.04670428093, -0.0710425274, 0.06627415065, 0.04875100377, 0.9984363494, 0.02735316939, 0.002654325383, 0.0696539316, -0.03071752574, 0.9970981714, 0.001988252236, 0, 0, 0, 1]
+IMU.T_b_c1: !!opencv-matrix
+ rows: 4
+ cols: 4
+ dt: f
+ data: [0.999631615647, 0.00364290975233, 0.0268953938121, -0.0687716591387, -0.0267262223909, -0.040457168815, 0.998823771507, -0.0293798482807, 0.00472673634588, -0.999174632734, -0.0403449038108, 0.0910884005093, 0, 0, 0, 1]
+IMU.NoiseGyro: 0.0035
+IMU.NoiseAcc: 0.02
+IMU.GyroWalk: 0.0002
+IMU.AccWalk: 0.002
+IMU.Frequency: 250.0
+ORBextractor.nFeatures: 2000
+ORBextractor.scaleFactor: 1.2
+ORBextractor.nLevels: 8
+ORBextractor.iniThFAST: 15
+ORBextractor.minThFAST: 5
+Viewer.KeyFrameSize: 0.05
+Viewer.KeyFrameLineWidth: 1.0
+Viewer.GraphLineWidth: 0.9
+Viewer.PointSize: 2.0
+Viewer.CameraSize: 0.08
+Viewer.CameraLineWidth: 3.0
+Viewer.ViewpointX: 0.0
+Viewer.ViewpointY: -0.7
+Viewer.ViewpointZ: -3.5
+Viewer.ViewpointF: 500.0
+
+IMU.fastInit: 1
+
+System.thFarPoints: 20.0

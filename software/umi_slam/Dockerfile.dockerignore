@@ -1,0 +1,19 @@
+# This Dockerfile-specific context excludes recordings, outputs and local builds.
+**
+!umi_slam/
+!umi_slam/**
+!stereo_imu_trajectory/
+!stereo_imu_trajectory/ORB_SLAM3/
+!stereo_imu_trajectory/ORB_SLAM3/**
+!stereo_imu_trajectory/Pangolin/
+!stereo_imu_trajectory/Pangolin/**
+**/.git
+**/build
+**/.build*
+**/__pycache__
+**/*.so*
+**/*.a
+**/*.o
+**/Examples
+**/Examples_old
+**/ORBvoc.txt

@@ -1,0 +1,9 @@
+{
+  "name": "UMI September 2026 legacy capture (experimental calibration)",
+  "adapter": "umi_ms901m_uniform",
+  "imu_hz": 250,
+  "accel_range_g": 4,
+  "gyro_range_dps": 2000,
+  "camera_to_imu_offset_ns": 0,
+  "notes": "Reproduces the historical Lissajous timing convention. Kalibr cam0 reports +249373 ns but the historical run did not apply it. This profile is only for the existing hardware; replace calibration and timing for new hardware."
+}

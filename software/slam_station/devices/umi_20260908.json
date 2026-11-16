@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "umi-20260908",
+  "name": "现有 UMI · 2026-09 / MS901M",
+  "family": "UMI",
+  "adapter": "umi_ms901m_uniform",
+  "timestamp_unit": "ns",
+  "timestamp_clock": "camera_hardware_clock",
+  "gyro_unit": "rad/s",
+  "accel_unit": "m/s^2",
+  "stereo_sync": "exact",
+  "camera_to_imu_offset_ns": 0,
+  "target_frame": "imu",
+  "T_imu_target": null,
+  "auxiliary_streams": [],
+  "notes": "仅供复现当前历史 UMI。UART 样本均匀重建；旧标定含实验性 fastInit；不能复用于新硬件。",
+  "imu_hz": 250,
+  "accel_range_g": 4,
+  "gyro_range_dps": 2000
+}

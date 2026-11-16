@@ -1,0 +1,55 @@
+{
+  "bundle": "UMI_Toolkit_20260921",
+  "target": "Ubuntu 22.04 x86_64 with Docker Engine and Python 3; Tk for GUI",
+  "software_backend": "Docker (relocatable frontend, no native absolute paths)",
+  "trajectory_origin": "IMU body; gripper TCP calibration not yet available",
+  "gpu_required": false,
+  "images": [
+    {
+      "tag": "umi-slam:0.1",
+      "id": "sha256:1b78e2f65dfe9a98592c97f25971d01cef9b89ccc9777a69b815d2aec8d2e6ac",
+      "architecture": "amd64",
+      "os": "linux",
+      "archive": "images/umi-slam_0.1.tar.gz"
+    },
+    {
+      "tag": "kalibr:portable-20260921",
+      "id": "sha256:523d6c3d54cd79215ddeaec3d2006e4c500a7d6c893836c49dd7d136c68a02d9",
+      "architecture": "amd64",
+      "os": "linux",
+      "archive": "images/kalibr_ubuntu20.04.tar.gz"
+    },
+    {
+      "tag": "kalibr:ros1-20.04",
+      "id": "sha256:882d194494e649a6cadfb6258d07443455f838279687969f50f92de586847566",
+      "architecture": "amd64",
+      "os": "linux",
+      "archive": "images/kalibr_ubuntu20.04.tar.gz"
+    },
+    {
+      "tag": "ubuntu:20.04",
+      "id": "sha256:8feb4d8ca5354def3d8fce243717141ce31e2c428701f6682bd2fafe15388214",
+      "architecture": "amd64",
+      "os": "linux",
+      "archive": "images/kalibr_ubuntu20.04.tar.gz"
+    }
+  ],
+  "validation": {
+    "slam_full_sequence": "4047 input pairs, 3310 published poses, 81.79% coverage in reference Docker run; not accuracy validation",
+    "kalibr": "Camera and camera-IMU entry points/imports checked; raw conversion smoke bag with 20 stereo pairs and 248 IMU samples; configuration conversion checked against historical extrinsics. Full calibration optimization not rerun.",
+    "portable_launcher": "USB path with Chinese, spaces and ampersand checked; Docker preparation and cancellation passed; GUI defaults to Docker",
+    "tests": "9 host unit tests passed; SLAM image contains the original 7 pipeline tests"
+  },
+  "examples": [
+    "examples/lissajous_20260915/input",
+    "examples/lissajous_20260915/reference_result",
+    "examples/calibration_20260908/stereo_imu.bag"
+  ],
+  "target_board_note": "User confirmed current physical tag edge is 34.5 mm (tagSize=0.0345 m). Use aprilgrid_6x6_measured34p5mm.yaml. PDF filename nominal 40 mm is not the current physical size. Historical 6x6 layout and spacing ratio=0.3 are retained; spacing was not reconfirmed.",
+  "target_board_confirmation": {
+    "tag_size_m": 0.0345,
+    "confirmed_by": "user",
+    "date": "2026-09-21",
+    "config": "calibration/targets/aprilgrid_6x6_measured34p5mm.yaml"
+  }
+}

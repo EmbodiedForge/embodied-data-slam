@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "ego-future",
+  "name": "EGO 接口模板（EuRoC）",
+  "family": "EGO",
+  "adapter": "euroc",
+  "timestamp_unit": "ns",
+  "timestamp_clock": "camera_hardware_clock",
+  "gyro_unit": "rad/s",
+  "accel_unit": "m/s^2",
+  "stereo_sync": "exact",
+  "camera_to_imu_offset_ns": 0,
+  "target_frame": "head_rig",
+  "T_imu_target": null,
+  "auxiliary_streams": [],
+  "notes": "预留双目+IMU 刚体轨迹。单目视频、人体骨骼、手部姿态尚未实现；未知原始协议须先适配。"
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "id": "umi-future",
+  "name": "新 UMI 接口模板（EuRoC）",
+  "family": "UMI",
+  "adapter": "euroc",
+  "timestamp_unit": "ns",
+  "timestamp_clock": "camera_hardware_clock",
+  "gyro_unit": "rad/s",
+  "accel_unit": "m/s^2",
+  "stereo_sync": "exact",
+  "camera_to_imu_offset_ns": 0,
+  "target_frame": "gripper_tcp",
+  "T_imu_target": null,
+  "auxiliary_streams": [],
+  "notes": "原始协议待确定。先转为同步 EuRoC；T_imu_target 未标定时只输出 IMU 位姿。夹爪开合流可通过 auxiliary_streams 留档，尚不参与融合。"
+}

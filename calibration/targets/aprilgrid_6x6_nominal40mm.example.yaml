@@ -1,0 +1,6 @@
+# Example only: measure the printed target first.
+target_type: aprilgrid
+tagCols: 6
+tagRows: 6
+tagSize: 0.04
+tagSpacing: 0.3

@@ -1,0 +1,6 @@
+FROM kalibr:ros1-20.04
+# The historical image runs camera-IMU calibration but lacks this dependency
+# required by the multi-camera calibration entry point.
+RUN python3 -m pip install --no-cache-dir igraph==0.10.8 texttable==1.7.0
+ENV MPLBACKEND=Agg QT_QPA_PLATFORM=offscreen
+RUN /bin/bash -c 'set -e; source /opt/ros/noetic/setup.bash; source /kalibr_workspace/devel/setup.bash; python3 -c "import kalibr_camera_calibration; import kalibr_imu_camera_calibration"; rosrun kalibr kalibr_calibrate_cameras --help >/tmp/camera-help.txt || [ "$?" -eq 2 ]; rosrun kalibr kalibr_calibrate_imu_camera --help >/tmp/imu-help.txt || [ "$?" -eq 2 ]'
