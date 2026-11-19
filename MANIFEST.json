@@ -1,16 +1,18 @@
 {
-  "bundle": "UMI_Toolkit_20260921",
-  "target": "Ubuntu 22.04 x86_64 with Docker Engine and Python 3; Tk for GUI",
-  "software_backend": "Docker (relocatable frontend, no native absolute paths)",
-  "trajectory_origin": "IMU body; gripper TCP calibration not yet available",
+  "bundle": "UMI_Toolkit_CPP_20261119",
+  "architecture": "C++17 + Qt6 Widgets + OpenCV + Eigen3 (ORB-SLAM3 / Pangolin native & Docker backend)",
+  "target": "Windows 10/11 x64 (MSYS2 CLANG64) and Ubuntu 22.04+ x86_64",
+  "software_backend": "Native ORB-SLAM3 C++ runner (umi_slam_runner) with relocatable backend.json, plus pure-C++ umi-slam:0.1 Docker fallback",
+  "trajectory_origin": "IMU body (optional target frame export when valid T_imu_target is configured)",
   "gpu_required": false,
   "images": [
     {
       "tag": "umi-slam:0.1",
-      "id": "sha256:1b78e2f65dfe9a98592c97f25971d01cef9b89ccc9777a69b815d2aec8d2e6ac",
+      "id": "sha256:da02168aa09df872f37fa90cda7a7001978d38ce5b036e5d781a6a3a485d7f26",
       "architecture": "amd64",
       "os": "linux",
-      "archive": "images/umi-slam_0.1.tar.gz"
+      "archive": "images/umi-slam_0.1.tar.gz",
+      "notes": "Rebuilt pure-C++ Ubuntu 22.04 image via software/umi_slam/build_docker.sh"
     },
     {
       "tag": "kalibr:portable-20260921",
@@ -20,7 +22,7 @@
       "archive": "images/kalibr_ubuntu20.04.tar.gz"
     },
     {
-      "tag": "kalibr:ros1-20.04",
+      "tag": "kalibr:ros1-20260921",
       "id": "sha256:882d194494e649a6cadfb6258d07443455f838279687969f50f92de586847566",
       "architecture": "amd64",
       "os": "linux",
@@ -35,10 +37,10 @@
     }
   ],
   "validation": {
-    "slam_full_sequence": "4047 input pairs, 3310 published poses, 81.79% coverage in reference Docker run; not accuracy validation",
-    "kalibr": "Camera and camera-IMU entry points/imports checked; raw conversion smoke bag with 20 stereo pairs and 248 IMU samples; configuration conversion checked against historical extrinsics. Full calibration optimization not rerun.",
-    "portable_launcher": "USB path with Chinese, spaces and ampersand checked; Docker preparation and cancellation passed; GUI defaults to Docker",
-    "tests": "9 host unit tests passed; SLAM image contains the original 7 pipeline tests"
+    "cpp_tests": "test_pipeline_cpp and test_station_cpp via CTest; covers MS901M decoding, timestamp precision, non-ASCII UTF-8 paths, ORB-SLAM3 patching & isolated backend staging, checksum verification, Docker/native cancellation, Kalibr conversion, synthetic stereo+IMU calibration, and zero-cross-dependency checks",
+    "native_backend": "Isolated C++ --build-backend builds Pangolin, DBoW2, g2o, ORB_SLAM3, and umi_slam_runner with relocatable backend.json",
+    "docker_backend": "Pure-C++ umi-slam:0.1 image builds and prints CLI usage cleanly; full sequence trajectory accuracy certification requires real capture regression",
+    "kalibr": "Retains ROS1 container helper scripts under calibration/tools/ and calibration/build/ invoked via calibration/kalibr.sh"
   },
   "examples": [
     "examples/lissajous_20260915/input",
