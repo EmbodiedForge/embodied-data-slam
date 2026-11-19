@@ -1,2 +1,14 @@
 __pycache__/
 *.pyc
+.vscode/
+build/
+build-*/
+dist/
+dist-*/
+releases/
+software/slam_station/.venv*
+software/slam_station/build
+software/slam_station/dist
+software/slam_station/dist-linux
+software/umi_slam/.build*
+CMakeUserPresets.json
