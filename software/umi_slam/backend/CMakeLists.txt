@@ -1,12 +1,36 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.20)
 project(umi_slam_runner LANGUAGES CXX)
-set(CMAKE_CXX_STANDARD 14)
-find_package(OpenCV 4 REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+if(MSVC)
+  add_compile_options(/utf-8 /bigobj /EHsc)
+  add_compile_definitions(NOMINMAX _USE_MATH_DEFINES _CRT_SECURE_NO_WARNINGS)
+endif()
+find_package(OpenCV REQUIRED)
 find_package(Eigen3 REQUIRED)
+find_package(Threads REQUIRED)
+find_package(GLEW REQUIRED)
 find_package(Pangolin REQUIRED)
-add_executable(umi_slam_runner runner.cc)
+find_package(Boost REQUIRED COMPONENTS serialization)
+find_package(OpenSSL REQUIRED)
+find_library(ORB_SLAM3_LIBRARY NAMES ORB_SLAM3 libORB_SLAM3
+  PATHS "${ORB_ROOT}/lib" "${ORB_ROOT}/bin" "${ORB_ROOT}/build" NO_DEFAULT_PATH REQUIRED)
+find_library(DBOW2_LIBRARY NAMES DBoW2 libDBoW2
+  PATHS "${ORB_ROOT}/Thirdparty/DBoW2/lib" "${ORB_ROOT}/Thirdparty/DBoW2/build" NO_DEFAULT_PATH REQUIRED)
+find_library(G2O_LIBRARY NAMES g2o libg2o
+  PATHS "${ORB_ROOT}/Thirdparty/g2o/lib" "${ORB_ROOT}/Thirdparty/g2o/bin" "${ORB_ROOT}/build/Thirdparty/g2o" NO_DEFAULT_PATH REQUIRED)
+if(MSVC AND EDS_WIN_UTF8_MANIFEST AND EXISTS "${EDS_WIN_UTF8_MANIFEST}")
+  set(EDS_UTF8_RC ${EDS_WIN_UTF8_MANIFEST})
+elseif(WIN32 AND NOT MSVC AND EDS_WIN_UTF8_RC AND EXISTS "${EDS_WIN_UTF8_RC}")
+  enable_language(RC)
+  set(EDS_UTF8_RC ${EDS_WIN_UTF8_RC})
+endif()
+add_executable(umi_slam_runner runner.cc ${EDS_UTF8_RC})
+if(MSVC)
+  target_include_directories(umi_slam_runner PRIVATE ${ORB_ROOT}/include/msvc_compat)
+endif()
 target_include_directories(umi_slam_runner PRIVATE ${ORB_ROOT} ${ORB_ROOT}/include
   ${ORB_ROOT}/include/CameraModels ${ORB_ROOT}/Thirdparty/Sophus
-  ${EIGEN3_INCLUDE_DIR} ${Pangolin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
-target_link_libraries(umi_slam_runner PRIVATE ${ORB_ROOT}/lib/libORB_SLAM3.so
-  ${OpenCV_LIBS} ${Pangolin_LIBRARIES})
+  ${EIGEN3_INCLUDE_DIR} ${EIGEN3_INCLUDE_DIRS} ${Pangolin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS})
+target_link_libraries(umi_slam_runner PRIVATE ${ORB_SLAM3_LIBRARY} ${DBOW2_LIBRARY} ${G2O_LIBRARY}
+  Eigen3::Eigen Boost::serialization OpenSSL::Crypto ${OpenCV_LIBS} ${Pangolin_LIBRARIES})

@@ -1,12 +1,22 @@
-# This Dockerfile-specific context excludes recordings, outputs and local builds.
+# Dockerfile-specific context: only the sources COPYed by software/umi_slam/Dockerfile.
 **
-!umi_slam/
-!umi_slam/**
-!stereo_imu_trajectory/
-!stereo_imu_trajectory/ORB_SLAM3/
-!stereo_imu_trajectory/ORB_SLAM3/**
-!stereo_imu_trajectory/Pangolin/
-!stereo_imu_trajectory/Pangolin/**
+!CMakeLists.txt
+!cmake/
+!cmake/**
+!include/
+!include/**
+!src/
+!src/**
+!source/
+!source/stereo_imu_trajectory/
+!source/stereo_imu_trajectory/ORB_SLAM3/
+!source/stereo_imu_trajectory/ORB_SLAM3/**
+!source/stereo_imu_trajectory/Pangolin/
+!source/stereo_imu_trajectory/Pangolin/**
+!software/
+!software/umi_slam/
+!software/umi_slam/backend/
+!software/umi_slam/backend/**
 **/.git
 **/build
 **/.build*

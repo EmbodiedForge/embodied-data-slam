@@ -33,7 +33,7 @@ if (UNIX)
         target_link_libraries(${COMPONENT} PUBLIC rt)
     endif()
 elseif(WIN32 OR WIN64)
-    target_link_libraries(${COMPONENT} PRIVATE shlwapi.lib)
+    target_link_libraries(${COMPONENT} PRIVATE shlwapi)
 endif()
 
 set_target_properties(

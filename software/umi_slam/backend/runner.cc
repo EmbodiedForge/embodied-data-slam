@@ -13,10 +13,11 @@ struct Frame { long long ns; std::string left, right; };
 struct Measurement { double t; cv::Point3f gyro, acc; };
 
 int main(int argc, char** argv) {
-    if (argc != 5) {
-        std::cerr << "Usage: umi_slam_runner vocabulary settings prepared_dir output_dir\n";
+    if (argc != 5 && !(argc == 6 && std::string(argv[5]) == "--viewer")) {
+        std::cerr << "Usage: umi_slam_runner vocabulary settings prepared_dir output_dir [--viewer]\n";
         return 2;
     }
+    const bool use_viewer = (argc == 6 && std::string(argv[5]) == "--viewer");
     try {
         const std::string data = argv[3], out = argv[4];
         std::ifstream images(data + "/frames.csv"), imu(data + "/imu.csv");
@@ -42,7 +43,7 @@ int main(int argc, char** argv) {
             measurements.front().t > frames.front().ns * 1e-9 ||
             measurements.back().t < frames.back().ns * 1e-9)
             throw std::runtime_error("IMU does not cover image interval");
-        ORB_SLAM3::System slam(argv[1], argv[2], ORB_SLAM3::System::IMU_STEREO, false);
+        ORB_SLAM3::System slam(argv[1], argv[2], ORB_SLAM3::System::IMU_STEREO, use_viewer);
         std::ofstream states(out + "/tracking.csv");
         states << "timestamp_ns,state,imu_initialized,map_id\n";
         size_t k = 0;
@@ -81,6 +82,7 @@ int main(int argc, char** argv) {
         if (!initialized) throw std::runtime_error("IMU initialization never completed");
         slam.SaveTrajectoryEuRoC(out + "/imu_euroc.txt");
         slam.SaveKeyFrameTrajectoryEuRoC(out + "/keyframes_euroc.txt");
+        slam.OfflineSaveMapPoints(out + "/map_points.csv");
         return 0;
     } catch (const std::exception& e) {
         std::cerr << "UMI_ERROR " << e.what() << std::endl;
